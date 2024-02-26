@@ -5,12 +5,12 @@ import { Layout } from '@/components/Layout'
 import { LoadingContainer } from '@/components/LoadingContainer'
 import { IRoute, RoutesCreator } from '@/RoutesCreator'
 
-const HomePage = lazy(() => import('@/pages/Home'))
+const MyBookingsPage = lazy(() => import('@/pages/MyBookings'))
 const SandboxPage = lazy(() => import('@/pages/Sandbox'))
 
 const ROUTES: IRoute[] = [
   {
-    element: <HomePage />,
+    element: <MyBookingsPage />,
     path: '/'
   },
   {
