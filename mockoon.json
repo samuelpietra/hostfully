@@ -1,0 +1,448 @@
+{
+  "uuid": "6bd728fb-b910-4357-a012-8b4795054008",
+  "lastMigration": 32,
+  "name": "Hostfully",
+  "endpointPrefix": "hostfully-bff/api/",
+  "latency": 0,
+  "port": 3456,
+  "hostname": "127.0.0.1",
+  "routes": [
+    {
+      "uuid": "13fb89f0-ebac-4470-ae00-0997aa23396e",
+      "type": "http",
+      "documentation": "List bookings",
+      "method": "get",
+      "endpoint": "bookings",
+      "responses": [
+        {
+          "uuid": "a5b2a4bf-f10c-4cbb-a319-a3d51f2c79fd",
+          "body": "{\n  \"totalCount\": 5,\n  \"items\": [\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"customerName\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n      \"checkInAt\": \"2024-03-10T09:00:00.000Z\",\n      \"checkOutAt\": \"2024-03-04T14:00:00.000Z\"\n    },\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"customerName\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n      \"checkInAt\": \"2024-03-02T12:00:00.000Z\",\n      \"checkOutAt\": \"2024-03-04T10:30:00.000Z\"\n    },\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"customerName\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n      \"checkInAt\": \"2024-03-01T09:00:00.000Z\",\n      \"checkOutAt\": \"2024-03-02T09:00:00.000Z\"\n    },\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"customerName\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n      \"checkInAt\": \"2024-02-26T16:00:00.000Z\",\n      \"checkOutAt\": \"2024-02-29T16:00:00.000Z\"\n    },\n    {\n      \"id\": \"{{faker 'string.uuid'}}\",\n      \"customerName\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n      \"checkInAt\": \"2024-02-22T09:00:00.000Z\",\n      \"checkOutAt\": \"2024-02-26T14:00:00.000Z\"\n    }\n  ]\n}",
+          "latency": 2000,
+          "statusCode": 200,
+          "label": "Success with bookings",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "e1295fb4-0787-4228-8ee0-93c3f80fe479",
+          "body": "{\n  \"totalCount\": 0,\n  \"items\": []\n}",
+          "latency": 2000,
+          "statusCode": 200,
+          "label": "Success without bookings",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "2b89299d-a4b4-435a-9713-879c7bcaf51b",
+          "body": "{\n  \"status\": 400,\n  \"title\": \"400 - Bad Request\",\n  \"detail\": \"Couldn't list bookings.\"\n}",
+          "latency": 2000,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "8df459bd-57cb-442c-a037-f44d7455f900",
+          "body": "{\n  \"status\": 500,\n  \"title\": \"500 - Internal Server Error\",\n  \"detail\": \"Couldn't reach server.\"\n}",
+          "latency": 2000,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "1a917efd-2ef5-45aa-bc23-0fa838fd9baf",
+      "type": "http",
+      "documentation": "Read booking",
+      "method": "get",
+      "endpoint": "bookings/:id",
+      "responses": [
+        {
+          "uuid": "ab3abf66-00af-4f64-8323-f153fd7db80d",
+          "body": "{\n  \"id\": \"{{urlParam 'id'}}\",\n  \"customer\": {\n    \"document\": \"520-05-5962\",\n    \"name\": \"{{faker 'person.firstName'}} {{faker 'person.lastName'}}\",\n    \"phone\": \"202-555-0123\"\n  },\n  \"checkInAt\": \"2024-02-28T09:00:00.000Z\",\n  \"checkOutAt\": \"2024-03-01T14:00:00.000Z\",\n  \"createdAt\": \"2024-02-28T09:00:00.000Z\",\n  \"updatedAt\": \"2024-02-28T09:00:00.000Z\"\n}",
+          "latency": 2000,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c0641738-49bf-43d0-9672-25971cab25a6",
+          "body": "{\n  \"status\": 404,\n  \"title\": \"404 - Not Found\",\n  \"detail\": \"Couldn't find booking.\"\n}",
+          "latency": 2000,
+          "statusCode": 404,
+          "label": "Not Found",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c732af73-e502-4c0d-9887-083d7e45e448",
+          "body": "{\n  \"status\": 500,\n  \"title\": \"500 - Internal Server Error\",\n  \"detail\": \"Couldn't reach server.\"\n}",
+          "latency": 2000,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "54e6ab25-eb15-4666-99bc-b0a0c042e773",
+      "type": "http",
+      "documentation": "Delete booking",
+      "method": "delete",
+      "endpoint": "bookings/:id",
+      "responses": [
+        {
+          "uuid": "8fb0ced7-0e2b-4af3-9abd-3f9edcb3e3c2",
+          "body": "",
+          "latency": 2000,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c07d9b35-ea81-4bed-a092-72f3d2cb89ac",
+          "body": "{\n  \"status\": 400,\n  \"title\": \"400 - Bad Request\",\n  \"detail\": \"Couldn't delete booking.\"\n}",
+          "latency": 2000,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d528bc5d-fd90-4a64-b89f-9cb0b19dd4c5",
+          "body": "{\n  \"status\": 500,\n  \"title\": \"500 - Internal Server Error\",\n  \"detail\": \"Couldn't reach server.\"\n}",
+          "latency": 2000,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "1901e431-d35a-47bf-a628-fddc23652211",
+      "type": "http",
+      "documentation": "Update booking",
+      "method": "patch",
+      "endpoint": "bookings/:id",
+      "responses": [
+        {
+          "uuid": "61e0a136-8a5b-43fe-b3fb-5793251fc193",
+          "body": "",
+          "latency": 2000,
+          "statusCode": 204,
+          "label": "No Content",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "8f5b53e5-4d5a-459b-aace-047fff305676",
+          "body": "{\n  \"status\": 400,\n  \"title\": \"400 - Bad Request\",\n  \"detail\": \"Couldn't update booking.\"\n}",
+          "latency": 2000,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "1af37aef-11fd-4a5e-9f1f-5d7afcbdffc8",
+          "body": "{\n  \"status\": 500,\n  \"title\": \"500 - Internal Server Error\",\n  \"detail\": \"Couldn't reach server.\"\n}",
+          "latency": 2000,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "630131c2-2800-4f86-bb6c-42d2eb82f5f2",
+      "type": "http",
+      "documentation": "Create booking",
+      "method": "post",
+      "endpoint": "bookings",
+      "responses": [
+        {
+          "uuid": "9a28d6aa-0658-4ebc-ac23-39d5c89352c6",
+          "body": "{\n  \"id\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 2000,
+          "statusCode": 200,
+          "label": "Success",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "8e2b2eb0-18d9-46cc-8cbe-3bba4090bca7",
+          "body": "{\n  \"status\": 400,\n  \"title\": \"400 - Bad Request\",\n  \"detail\": \"Couldn't create booking.\"\n}",
+          "latency": 2000,
+          "statusCode": 400,
+          "label": "Bad Request",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "dc34d3f6-dbe2-44ee-b0fc-682a4ed6504d",
+          "body": "{\n  \"status\": 500,\n  \"title\": \"500 - Internal Server Error\",\n  \"detail\": \"Couldn't reach server.\"\n}",
+          "latency": 2000,
+          "statusCode": 500,
+          "label": "Internal Server Error",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "PFX",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": false,
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With, client_id"
+    },
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "folders": [
+    {
+      "uuid": "ded8716e-2fd6-4e46-a03d-561b71a606b7",
+      "name": "Bookings",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "13fb89f0-ebac-4470-ae00-0997aa23396e"
+        },
+        {
+          "type": "route",
+          "uuid": "630131c2-2800-4f86-bb6c-42d2eb82f5f2"
+        },
+        {
+          "type": "route",
+          "uuid": "1a917efd-2ef5-45aa-bc23-0fa838fd9baf"
+        },
+        {
+          "type": "route",
+          "uuid": "1901e431-d35a-47bf-a628-fddc23652211"
+        },
+        {
+          "type": "route",
+          "uuid": "54e6ab25-eb15-4666-99bc-b0a0c042e773"
+        }
+      ]
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "folder",
+      "uuid": "ded8716e-2fd6-4e46-a03d-561b71a606b7"
+    }
+  ],
+  "callbacks": []
+}
