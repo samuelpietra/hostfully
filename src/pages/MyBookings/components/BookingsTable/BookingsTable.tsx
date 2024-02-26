@@ -9,42 +9,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 import { ListBookingsAPI } from '@/api-models/bookings'
-import { LoadingContainer } from '@/components/LoadingContainer'
-import { StateMessage } from '@/components/StateMessage'
 import dateFormat from '@/infrastructure/dateFormat'
-import { ApiErrorResponse } from '@/services/http/errorInterceptor'
 
 const COLUMNS = ['Customer', 'Check-in', 'Check-out']
 
 interface BookingsTableProps {
-  data?: ListBookingsAPI.GetResponse
-  error?: ApiErrorResponse
-  loading: boolean
-  onRetry: () => void
+  items: ListBookingsAPI.Item[]
 }
 
-function BookingsTable({ loading, onRetry, data, error }: BookingsTableProps) {
+function BookingsTable({ items }: BookingsTableProps) {
   const navigate = useNavigate()
-
-  if (loading) return <LoadingContainer title="Loading bookings..." />
-
-  if (error) {
-    return (
-      <StateMessage
-        type="error"
-        title={error.title}
-        subtitle={error.detail}
-        buttonAction={onRetry}
-        buttonLabel="Try again"
-      />
-    )
-  }
-
-  if (data?.totalCount === 0) {
-    return <StateMessage type="empty" title="Nothing to show" subtitle="Try scheduling a booking!" />
-  }
-
-  const { items = [] } = data ?? {}
 
   return (
     <TableContainer component={Paper}>
@@ -55,7 +29,7 @@ function BookingsTable({ loading, onRetry, data, error }: BookingsTableProps) {
               <TableCell
                 key={column}
                 sx={{
-                  background: '#252931',
+                  background: '#1d2025',
                   color: '#ccc',
                   fontWeight: 'bold'
                 }}
@@ -73,14 +47,14 @@ function BookingsTable({ loading, onRetry, data, error }: BookingsTableProps) {
               onClick={() => navigate(`${item.id}`)}
               sx={{
                 '&:last-child td, &:last-child th': { border: 0 },
-                '&:hover': { background: '#bbb' },
-                'background': '#999',
+                '&:hover': { background: '#2d313b' },
+                'background': '#252931',
                 'cursor': 'pointer'
               }}
             >
-              <TableCell>{item.customerName}</TableCell>
-              <TableCell>{dateFormat.format(item.checkInAt)}</TableCell>
-              <TableCell>{dateFormat.format(item.checkOutAt)}</TableCell>
+              <TableCell sx={{ borderColor: '#777', color: '#ccc' }}>{item.customerName}</TableCell>
+              <TableCell sx={{ borderColor: '#777', color: '#ccc' }}>{dateFormat.format(item.checkInAt)}</TableCell>
+              <TableCell sx={{ borderColor: '#777', color: '#ccc' }}>{dateFormat.format(item.checkOutAt)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
