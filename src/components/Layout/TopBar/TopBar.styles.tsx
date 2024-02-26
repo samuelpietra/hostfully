@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const TOPBAR_HEIGHT = 59
+const TOPBAR_HEIGHT = 62
 
 const TopBar = styled.header`
   align-items: center;

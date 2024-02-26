@@ -1,14 +1,19 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { ListBookingsAPI } from '@/api-models/bookings'
 import { Layout } from '@/components/Layout'
 import useHttpStateful from '@/hooks/useHttpStateful'
 import usePageTitle from '@/hooks/usePageTitle'
+import useWindowDimensions from '@/hooks/useWindowDimensions'
 
-import { BookingsTable } from './components/BookingsTable'
+import { Result } from './components/Result'
 
 function MyBookingsPage() {
   usePageTitle('My Bookings')
+
+  const dimensions = useWindowDimensions()
+
+  const Wrapper = useMemo(() => (dimensions.width < Layout.MIN_WIDTH ? Layout.Screen : Layout.Sheet), [dimensions])
 
   const {
     isLoading: isLoadingBookings,
@@ -22,11 +27,11 @@ function MyBookingsPage() {
   }, [])
 
   return (
-    <Layout.Sheet>
+    <Wrapper>
       <h1 style={{ marginBottom: 24 }}>My bookings</h1>
 
-      <BookingsTable data={bookingsList} error={listBookingsError} loading={isLoadingBookings} onRetry={listBookings} />
-    </Layout.Sheet>
+      <Result data={bookingsList} error={listBookingsError} loading={isLoadingBookings} onRetry={listBookings} />
+    </Wrapper>
   )
 }
 
