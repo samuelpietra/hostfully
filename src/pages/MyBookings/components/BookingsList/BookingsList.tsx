@@ -2,6 +2,8 @@ import { FaPaperPlane, FaSuitcase } from 'react-icons/fa'
 import { IoOpenOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 
+import { IconButton } from '@mui/material'
+
 import { ListBookingsAPI } from '@/api-models/bookings'
 import { Card } from '@/components/Card'
 import { Column } from '@/components/Column'
@@ -44,7 +46,9 @@ function BookingsList({ items }: BookingsListProps) {
               </Row>
             </Column>
 
-            <IoOpenOutline onClick={() => navigate(`${item.id}`)} size={36} />
+            <IconButton onClick={() => navigate(`${item.id}`)}>
+              <IoOpenOutline size={36} />
+            </IconButton>
           </Card>
         )
       })}
