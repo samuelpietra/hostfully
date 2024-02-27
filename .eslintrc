@@ -21,7 +21,6 @@
     ]
   },
   "plugins": [
-    "eslint-plugin-import-helpers",
     "@typescript-eslint",
     "react-refresh",
     "unused-imports"
@@ -128,27 +127,6 @@
     "prefer-template": "warn",
     "require-await": "error",
     "yoda": "warn",
-    "@typescript-eslint/no-var-requires": "off",
-    "import-helpers/order-imports": [
-      "warn",
-      {
-        "newlinesBetween": "always",
-        "groups": [
-          "/^react/",
-          "module",
-          "/^@shared/",
-          [
-            "parent",
-            "sibling",
-            "index"
-          ]
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "ignoreCase": true
-        }
-      }
-    ]
-  },
-  "react-refresh/only-export-components": "off"
+    "@typescript-eslint/no-var-requires": "off"
+  }
 }
