@@ -9,13 +9,15 @@ import { Layout } from '@/components/Layout'
 import useHttpStateful from '@/hooks/useHttpStateful'
 import usePageTitle from '@/hooks/usePageTitle'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
+import { useBookingsStore } from '@/store/bookings'
 
 import { Result } from './components/Result'
 
 function BookingDetailsPage() {
   usePageTitle('Booking details')
 
-  const { id = '' } = useParams<{ id: string }>()
+  const { storedDetails, setStoredDetails } = useBookingsStore()
+  const { id: currentBookingId = '' } = useParams<{ id: string }>()
 
   const navigate = useNavigate()
   const dimensions = useWindowDimensions()
@@ -24,14 +26,23 @@ function BookingDetailsPage() {
 
   const {
     isLoading: isLoadingBookingDetails,
-    payload: bookingDetails,
     request: getBookingDetails,
     error: getBookingDetailsError
   } = useHttpStateful<GetBookingDetailsAPI.GetResponse, GetBookingDetailsAPI.RequestParams>('get', '/bookings/:id')
 
   useEffect(() => {
-    void getBookingDetails({ urlParams: { id } })
-  }, [])
+    if (storedDetails?.id !== currentBookingId) {
+      const fetchNewData = async () => {
+        const { payload } = await getBookingDetails({
+          urlParams: { id: currentBookingId }
+        })
+
+        if (payload) setStoredDetails(payload)
+      }
+
+      void fetchNewData()
+    }
+  }, [currentBookingId, getBookingDetails, setStoredDetails, storedDetails?.id])
 
   return (
     <Wrapper>
@@ -39,15 +50,15 @@ function BookingDetailsPage() {
 
       <Layout.Content>
         <Result
-          data={bookingDetails}
+          data={storedDetails}
           error={getBookingDetailsError}
           loading={isLoadingBookingDetails}
-          onRetry={getBookingDetails}
+          onRetry={() => void getBookingDetails()}
         />
       </Layout.Content>
 
       <Layout.Footer>
-        <Button onClick={() => navigate(-1)} size="small" startIcon={<FaChevronLeft color="#3dc299" />}>
+        <Button onClick={() => navigate('/')} size="small" startIcon={<FaChevronLeft color="#3dc299" />}>
           Back
         </Button>
       </Layout.Footer>
