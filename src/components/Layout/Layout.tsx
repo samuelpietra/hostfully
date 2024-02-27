@@ -35,6 +35,7 @@ const Sheet = ({ children, ...props }: PropsWithChildren<S.SheetProps>) => {
 }
 
 Layout.Content = S.Content
+Layout.Footer = S.Footer
 Layout.Screen = Screen
 Layout.Sheet = Sheet
 Layout.MIN_WIDTH = MIN_WIDTH

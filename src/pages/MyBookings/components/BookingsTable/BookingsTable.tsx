@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow'
 import { ListBookingsAPI } from '@/api-models/bookings'
 import dateFormat from '@/infrastructure/dateFormat'
 
+const CELL_STYLE = { borderColor: '#777', color: '#ccc' }
 const COLUMNS = ['Customer', 'Check-in', 'Check-out']
 
 interface BookingsTableProps {
@@ -41,22 +42,26 @@ function BookingsTable({ items }: BookingsTableProps) {
         </TableHead>
 
         <TableBody>
-          {items.map((item) => (
-            <TableRow
-              key={item.id}
-              onClick={() => navigate(`${item.id}`)}
-              sx={{
-                '&:last-child td, &:last-child th': { border: 0 },
-                '&:hover': { background: '#2d313b' },
-                'background': '#252931',
-                'cursor': 'pointer'
-              }}
-            >
-              <TableCell sx={{ borderColor: '#777', color: '#ccc' }}>{item.customerName}</TableCell>
-              <TableCell sx={{ borderColor: '#777', color: '#ccc' }}>{dateFormat.format(item.checkInAt)}</TableCell>
-              <TableCell sx={{ borderColor: '#777', color: '#ccc' }}>{dateFormat.format(item.checkOutAt)}</TableCell>
-            </TableRow>
-          ))}
+          {items.map((item, index) => {
+            const isEven = index % 2 === 0
+
+            return (
+              <TableRow
+                key={item.id}
+                onClick={() => navigate(`${item.id}`)}
+                sx={{
+                  '&:last-child td, &:last-child th': { border: 0 },
+                  '&:hover': { background: '#2d313b' },
+                  'background': `${isEven ? '#282c35' : '#252931'}`,
+                  'cursor': 'pointer'
+                }}
+              >
+                <TableCell sx={CELL_STYLE}>{item.customerName}</TableCell>
+                <TableCell sx={CELL_STYLE}>{dateFormat.format(item.checkInAt)}</TableCell>
+                <TableCell sx={CELL_STYLE}>{dateFormat.format(item.checkOutAt)}</TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

@@ -18,13 +18,14 @@ function BookingsList({ items }: BookingsListProps) {
   return (
     <>
       {items.map((item, index) => {
+        const isEven = index % 2 === 0
         const isLastIndex = index === items.length - 1
 
         return (
           <Card
             key={item.id}
             alignItems="center"
-            background="#252931"
+            background={isEven ? '#2d313b' : '#252931'}
             flexDirection="row"
             justifyContent="space-between"
             marginBottom={isLastIndex ? undefined : 8}
