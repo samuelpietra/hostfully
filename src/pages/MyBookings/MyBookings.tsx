@@ -52,7 +52,7 @@ function MyBookingsPage() {
       <Row alignItems="center" marginBottom={24}>
         <h1 style={{ marginRight: 8 }}>My bookings</h1>
 
-        <IconButton onClick={() => void listBookings()}>
+        <IconButton style={{ padding: 0 }} onClick={() => void listBookings()}>
           <IoMdRefresh size={32} />
         </IconButton>
       </Row>
