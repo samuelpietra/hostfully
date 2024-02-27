@@ -15,4 +15,25 @@ namespace ListBookingsAPI {
   }>
 }
 
-export type { ListBookingsAPI }
+namespace GetBookingDetailsAPI {
+  export interface GetResponse {
+    id: string
+    customer: {
+      document: string
+      name: string
+      phone: string
+    }
+    checkInAt: string
+    checkOutAt: string
+    createdAt: string
+    updatedAt: string
+  }
+
+  export type RequestParams = APIRequestParams<{
+    urlParams: {
+      id: string
+    }
+  }>
+}
+
+export type { ListBookingsAPI, GetBookingDetailsAPI }
