@@ -9,7 +9,7 @@ const http = axios.create({
   baseURL: `${env.VITE_API_URL}/hostfully-bff/api`
 })
 
-http.interceptors.request.use(undefined, requestInterceptor)
+http.interceptors.request.use(requestInterceptor)
 http.interceptors.response.use(undefined, errorInterceptor)
 
 export default http
