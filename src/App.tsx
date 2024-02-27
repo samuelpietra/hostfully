@@ -1,12 +1,22 @@
 import { IconContext } from 'react-icons'
 
+import { createTheme, ThemeProvider } from '@mui/material'
+
 import Routes from './routes'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark'
+  }
+})
 
 function App() {
   return (
-    <IconContext.Provider value={{ color: '#ccc', size: '20px' }}>
-      <Routes />
-    </IconContext.Provider>
+    <ThemeProvider theme={darkTheme}>
+      <IconContext.Provider value={{ color: '#ccc', size: '20px' }}>
+        <Routes />
+      </IconContext.Provider>
+    </ThemeProvider>
   )
 }
 

@@ -13,7 +13,7 @@ function LoadingContainer({ size = 32, title }: LoadingContainerProps) {
         <AnimatedLoading size={size} />
 
         {Boolean(title) && (
-          <h1
+          <h2
             style={{
               color: '#fff',
               marginTop: 8,
@@ -21,7 +21,7 @@ function LoadingContainer({ size = 32, title }: LoadingContainerProps) {
             }}
           >
             {title}
-          </h1>
+          </h2>
         )}
       </Column>
     </Container>

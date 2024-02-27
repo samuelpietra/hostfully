@@ -44,4 +44,14 @@ const Content = styled.div.attrs({ className: 'scroll-auto-hide' })`
   padding: 16px;
 `
 
-export { Container, Content, PageContent, Sheet }
+const Footer = styled.footer`
+  border-top: 1px solid #555;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0px -16px;
+  padding: 16px;
+  padding-bottom: 0;
+`
+
+export { Container, Content, Footer, PageContent, Sheet }
