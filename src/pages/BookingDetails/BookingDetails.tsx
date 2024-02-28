@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react'
-import { FaChevronLeft } from 'react-icons/fa'
+import { useEffect, useMemo, useState } from 'react'
+import { FaChevronLeft, FaRegTrashAlt } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Button } from '@mui/material'
@@ -11,6 +11,7 @@ import usePageTitle from '@/hooks/usePageTitle'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
 import { useBookingsStore } from '@/store/bookings'
 
+import { DeleteConfirmationDialog } from './components/DeleteConfirmationDialog'
 import { Result } from './components/Result'
 
 function BookingDetailsPage() {
@@ -18,6 +19,7 @@ function BookingDetailsPage() {
 
   const { storedDetails, setStoredDetails } = useBookingsStore()
   const { id: currentBookingId = '' } = useParams<{ id: string }>()
+  const [showDialog, setShowDialog] = useState(false)
 
   const navigate = useNavigate()
   const dimensions = useWindowDimensions()
@@ -49,6 +51,13 @@ function BookingDetailsPage() {
       <h1 style={{ marginBottom: 24 }}>Booking details</h1>
 
       <Layout.Content>
+        <DeleteConfirmationDialog
+          bookingId={currentBookingId}
+          onCancel={() => setShowDialog(false)}
+          onConfirm={() => navigate('/?refresh=true')}
+          visible={showDialog}
+        />
+
         <Result
           data={storedDetails}
           error={getBookingDetailsError}
@@ -57,9 +66,18 @@ function BookingDetailsPage() {
         />
       </Layout.Content>
 
-      <Layout.Footer>
-        <Button onClick={() => navigate('/')} size="small" startIcon={<FaChevronLeft color="#3dc299" />}>
+      <Layout.Footer justifyContent="space-between">
+        <Button onClick={() => navigate('/')} size="small" startIcon={<FaChevronLeft color="#3dc299" size={18} />}>
           Back
+        </Button>
+
+        <Button
+          disabled={isLoadingBookingDetails}
+          onClick={() => setShowDialog(true)}
+          size="small"
+          startIcon={<FaRegTrashAlt color="#e06c75" size={18} />}
+        >
+          Delete
         </Button>
       </Layout.Footer>
     </Wrapper>
