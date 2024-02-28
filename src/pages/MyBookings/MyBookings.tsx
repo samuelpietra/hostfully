@@ -50,10 +50,10 @@ function MyBookingsPage() {
   return (
     <Wrapper>
       <Row alignItems="center" marginBottom={24}>
-        <h1 style={{ marginRight: 8 }}>My bookings</h1>
+        <h1 style={{ marginRight: 12 }}>My bookings</h1>
 
         <IconButton style={{ padding: 0 }} onClick={() => void listBookings()}>
-          <IoMdRefresh size={32} />
+          <IoMdRefresh color="#3dc299" size={32} />
         </IconButton>
       </Row>
 
