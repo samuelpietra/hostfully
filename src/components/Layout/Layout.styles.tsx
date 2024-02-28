@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import styled from 'styled-components'
 
 import { TOPBAR_HEIGHT } from './TopBar/TopBar.styles'
@@ -44,11 +46,12 @@ const Content = styled.div.attrs({ className: 'scroll-auto-hide' })`
   padding: 16px;
 `
 
-const Footer = styled.footer`
+const Footer = styled.footer<{ justifyContent?: CSSProperties['justifyContent'] }>`
   border-top: 1px solid #555;
   bottom: 0;
   box-sizing: border-box;
   display: flex;
+  justify-content: ${({ justifyContent = 'flex-start' }) => justifyContent};
   margin: 0px -16px;
   padding: 16px;
   padding-bottom: 0;

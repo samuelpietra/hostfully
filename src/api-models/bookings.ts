@@ -36,4 +36,12 @@ namespace GetBookingDetailsAPI {
   }>
 }
 
-export type { ListBookingsAPI, GetBookingDetailsAPI }
+namespace DeleteBookingAPI {
+  export type RequestParams = APIRequestParams<{
+    urlParams: {
+      id: string
+    }
+  }>
+}
+
+export type { ListBookingsAPI, GetBookingDetailsAPI, DeleteBookingAPI }
