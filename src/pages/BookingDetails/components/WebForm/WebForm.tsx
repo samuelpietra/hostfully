@@ -1,4 +1,4 @@
-import { IoPersonSharp } from 'react-icons/io5'
+import { IoCalendar, IoPersonSharp } from 'react-icons/io5'
 
 import { TextField } from '@mui/material'
 
@@ -57,7 +57,7 @@ function WebForm({ checkInAt, checkOutAt, customer }: GetBookingDetailsAPI.GetRe
 
       <Column>
         <Row alignItems="center" borderBottom="1px dashed #555" marginBottom={24} paddingBottom={8}>
-          <IoPersonSharp color="#3dc299" size={22} />
+          <IoCalendar color="#3dc299" size={22} />
           <h2 style={{ marginLeft: 16 }}>Period</h2>
         </Row>
 

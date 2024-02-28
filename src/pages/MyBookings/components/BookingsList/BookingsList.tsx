@@ -47,7 +47,7 @@ function BookingsList({ items }: BookingsListProps) {
             </Column>
 
             <IconButton style={{ padding: 0 }} onClick={() => navigate(`${item.id}`)}>
-              <IoOpenOutline size={36} />
+              <IoOpenOutline color="#3dc299" size={36} />
             </IconButton>
           </Card>
         )
