@@ -63,12 +63,18 @@ function MyBookingsPage() {
         <Row alignItems="center">
           <h1 style={{ marginRight: 12 }}>My bookings</h1>
 
-          <IconButton disabled={isLoadingBookings} style={{ padding: 0 }} onClick={() => void handleManualRefresh()}>
+          <IconButton
+            aria-label="IoMdRefresh"
+            disabled={isLoadingBookings}
+            style={{ padding: 0 }}
+            onClick={() => void handleManualRefresh()}
+          >
             <IoMdRefresh color={isLoadingBookings ? '#777' : '#3dc299'} size={32} />
           </IconButton>
         </Row>
 
         <Button
+          aria-label="FaPlus"
           disabled={isLoadingBookings}
           onClick={() => navigate('new')}
           size="small"

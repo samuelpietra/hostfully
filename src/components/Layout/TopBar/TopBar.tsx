@@ -12,6 +12,7 @@ function TopBar() {
       <img src={fullLogo} alt="logo" height={45} />
 
       <IconButton
+        aria-label="FaGithub"
         style={{ padding: 0 }}
         onClick={() => window.open('https://github.com/samuelpietra/hostfully', '_blank')}
       >
