@@ -6,6 +6,7 @@ import { LoadingContainer } from '@/components/LoadingContainer'
 import { IRoute, RoutesCreator } from '@/RoutesCreator'
 
 const BookingDetailsPage = lazy(() => import('@/pages/BookingDetails'))
+const EditBookingPage = lazy(() => import('@/pages/EditBooking'))
 const MyBookingsPage = lazy(() => import('@/pages/MyBookings'))
 
 const ROUTES: IRoute[] = [
@@ -16,6 +17,14 @@ const ROUTES: IRoute[] = [
   {
     element: <BookingDetailsPage />,
     path: ':id'
+  },
+  {
+    element: <EditBookingPage />,
+    path: ':id/edit'
+  },
+  {
+    element: <EditBookingPage />,
+    path: 'new'
   }
 ]
 
