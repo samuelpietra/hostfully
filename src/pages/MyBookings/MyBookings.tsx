@@ -1,8 +1,9 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
+import { FaPlus } from 'react-icons/fa'
 import { IoMdRefresh } from 'react-icons/io'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { IconButton } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 
 import { ListBookingsAPI } from '@/api-models/bookings'
 import { Layout } from '@/components/Layout'
@@ -17,9 +18,10 @@ import { Result } from './components/Result'
 function MyBookingsPage() {
   usePageTitle('My Bookings')
 
-  const { storedList, setStoredList } = useBookingsStore()
+  const { storedList, setStoredList, reset } = useBookingsStore()
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const navigate = useNavigate()
   const dimensions = useWindowDimensions()
 
   const shouldRefresh = useMemo(() => searchParams.get('refresh') === 'true', [searchParams])
@@ -30,6 +32,11 @@ function MyBookingsPage() {
     request: listBookings,
     error: listBookingsError
   } = useHttpStateful<ListBookingsAPI.GetResponse, ListBookingsAPI.RequestParams>('get', '/bookings')
+
+  const handleManualRefresh = useCallback(() => {
+    reset()
+    void listBookings()
+  }, [listBookings, reset])
 
   useEffect(() => {
     if (shouldRefresh || !storedList) {
@@ -49,20 +56,34 @@ function MyBookingsPage() {
 
   return (
     <Wrapper>
-      <Row alignItems="center" marginBottom={24}>
-        <h1 style={{ marginRight: 12 }}>My bookings</h1>
+      <Row justifyContent="space-between" marginBottom={24}>
+        <Row alignItems="center">
+          <h1 style={{ marginRight: 12 }}>My bookings</h1>
 
-        <IconButton style={{ padding: 0 }} onClick={() => void listBookings()}>
-          <IoMdRefresh color="#3dc299" size={32} />
-        </IconButton>
+          <IconButton disabled={isLoadingBookings} style={{ padding: 0 }} onClick={handleManualRefresh}>
+            <IoMdRefresh color={isLoadingBookings ? '#777' : '#3dc299'} size={32} />
+          </IconButton>
+        </Row>
+
+        <Button
+          disabled={isLoadingBookings}
+          onClick={() => navigate('new')}
+          size="small"
+          startIcon={<FaPlus color="#3dc299" size={18} />}
+          variant="outlined"
+        >
+          New
+        </Button>
       </Row>
 
-      <Result
-        data={storedList}
-        error={listBookingsError}
-        loading={isLoadingBookings}
-        onRetry={() => void listBookings()}
-      />
+      <Layout.Content>
+        <Result
+          data={storedList}
+          error={listBookingsError}
+          loading={isLoadingBookings}
+          onRetry={() => void listBookings()}
+        />
+      </Layout.Content>
     </Wrapper>
   )
 }

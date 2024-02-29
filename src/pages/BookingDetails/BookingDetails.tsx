@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import { FaChevronLeft, FaRegTrashAlt } from 'react-icons/fa'
-import { useNavigate, useParams } from 'react-router-dom'
+import { FaChevronLeft, FaPencilAlt, FaRegTrashAlt } from 'react-icons/fa'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { Button } from '@mui/material'
 
 import { GetBookingDetailsAPI } from '@/api-models/bookings'
 import { Layout } from '@/components/Layout'
+import { Row } from '@/components/Row'
 import useHttpStateful from '@/hooks/useHttpStateful'
 import usePageTitle from '@/hooks/usePageTitle'
 import useWindowDimensions from '@/hooks/useWindowDimensions'
@@ -18,12 +19,15 @@ function BookingDetailsPage() {
   usePageTitle('Booking details')
 
   const { storedDetails, setStoredDetails } = useBookingsStore()
-  const { id: currentBookingId = '' } = useParams<{ id: string }>()
   const [showDialog, setShowDialog] = useState(false)
+
+  const { id: currentBookingId = '' } = useParams<{ id: string }>()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const navigate = useNavigate()
   const dimensions = useWindowDimensions()
 
+  const shouldRefresh = useMemo(() => searchParams.get('refresh') === 'true', [searchParams])
   const Wrapper = useMemo(() => (dimensions.width < Layout.MIN_WIDTH ? Layout.Screen : Layout.Sheet), [dimensions])
 
   const {
@@ -33,18 +37,30 @@ function BookingDetailsPage() {
   } = useHttpStateful<GetBookingDetailsAPI.GetResponse, GetBookingDetailsAPI.RequestParams>('get', '/bookings/:id')
 
   useEffect(() => {
-    if (storedDetails?.id !== currentBookingId) {
+    if (shouldRefresh || storedDetails?.id !== currentBookingId) {
       const fetchNewData = async () => {
         const { payload } = await getBookingDetails({
           urlParams: { id: currentBookingId }
         })
 
-        if (payload) setStoredDetails(payload)
+        if (payload) {
+          setStoredDetails(payload)
+          searchParams.delete('refresh')
+          setSearchParams(searchParams)
+        }
       }
 
       void fetchNewData()
     }
-  }, [currentBookingId, getBookingDetails, setStoredDetails, storedDetails?.id])
+  }, [
+    currentBookingId,
+    getBookingDetails,
+    searchParams,
+    setSearchParams,
+    setStoredDetails,
+    shouldRefresh,
+    storedDetails?.id
+  ])
 
   return (
     <Wrapper>
@@ -71,14 +87,26 @@ function BookingDetailsPage() {
           Back
         </Button>
 
-        <Button
-          disabled={isLoadingBookingDetails}
-          onClick={() => setShowDialog(true)}
-          size="small"
-          startIcon={<FaRegTrashAlt color="#e06c75" size={18} />}
-        >
-          Delete
-        </Button>
+        <Row>
+          <Button
+            sx={{ marginRight: 2 }}
+            disabled={isLoadingBookingDetails}
+            onClick={() => setShowDialog(true)}
+            size="small"
+            startIcon={<FaRegTrashAlt color="#e06c75" size={18} />}
+          >
+            Delete
+          </Button>
+
+          <Button
+            disabled={isLoadingBookingDetails}
+            onClick={() => navigate(`/${currentBookingId}/edit`)}
+            size="small"
+            startIcon={<FaPencilAlt color="#3dc299" size={18} />}
+          >
+            Edit
+          </Button>
+        </Row>
       </Layout.Footer>
     </Wrapper>
   )
