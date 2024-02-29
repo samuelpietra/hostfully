@@ -36,9 +36,8 @@ function Result({ loading, onRetry, data, error }: ResultProps) {
     )
   }
 
-  if (data?.totalCount === 0) {
+  if (!data?.items?.length)
     return <StateMessage type="empty" title="Nothing to show" subtitle="Try scheduling a booking!" />
-  }
 
   const { items = [] } = data ?? {}
 
