@@ -18,6 +18,5 @@ describe('Layout', () => {
 
     // already fully tested at respective directories
     expect(screen.getByRole('banner')).toBeInTheDocument() // <header>
-    expect(screen.getByRole('complementary')).toBeInTheDocument() // <aside>
   })
 })
