@@ -33,10 +33,13 @@ function MyBookingsPage() {
     error: listBookingsError
   } = useHttpStateful<ListBookingsAPI.GetResponse, ListBookingsAPI.RequestParams>('get', '/bookings')
 
-  const handleManualRefresh = useCallback(() => {
+  const handleManualRefresh = useCallback(async () => {
     reset()
-    void listBookings()
-  }, [listBookings, reset])
+
+    const { payload } = await listBookings()
+
+    if (payload) setStoredList(payload)
+  }, [listBookings, reset, setStoredList])
 
   useEffect(() => {
     if (shouldRefresh || !storedList) {
@@ -60,7 +63,7 @@ function MyBookingsPage() {
         <Row alignItems="center">
           <h1 style={{ marginRight: 12 }}>My bookings</h1>
 
-          <IconButton disabled={isLoadingBookings} style={{ padding: 0 }} onClick={handleManualRefresh}>
+          <IconButton disabled={isLoadingBookings} style={{ padding: 0 }} onClick={() => void handleManualRefresh()}>
             <IoMdRefresh color={isLoadingBookings ? '#777' : '#3dc299'} size={32} />
           </IconButton>
         </Row>
