@@ -231,7 +231,7 @@
       "uuid": "1901e431-d35a-47bf-a628-fddc23652211",
       "type": "http",
       "documentation": "Update booking",
-      "method": "patch",
+      "method": "put",
       "endpoint": "bookings/:id",
       "responses": [
         {
