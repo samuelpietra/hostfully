@@ -56,7 +56,7 @@ function StateMessage({
       {Boolean(subtitle) && <S.Subtitle>{subtitle}</S.Subtitle>}
 
       {Boolean(buttonAction) && (
-        <Button onClick={buttonAction} style={{ marginTop: 20 }} variant="contained">
+        <Button onClick={buttonAction} style={{ marginTop: 20, padding: 15 }} variant="contained">
           {buttonLabel}
         </Button>
       )}
