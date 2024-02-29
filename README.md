@@ -23,6 +23,7 @@ Hostfully products give property managers the tools they need to automate operat
 ## Table of Contents
 
 - [Getting started](#getting-started)
+- [Responsive design](#responsive-design)
 - [File structure](#file-structure)
 - [Contributors](#contributors)
 
@@ -38,7 +39,18 @@ git clone https://github.com/samuelpietra/hostfully.git
 
 ### Prerequisites
 
-Make sure to use at least **Node 18** and **Yarn 1.22.1** before proceeding.
+- This project needs to run a local mock API with [Mockoon](https://mockoon.com/)
+- A `.env.local` file is needed at root. Simply duplicate and rename `.env.example`
+- Make sure to use at least **Node 18** and **Yarn 1.22.1** before proceeding
+
+### Installing and running Mockoon
+
+1. Download Mockoon ([here](https://mockoon.com/download/#download-section))
+2. Install and open program
+3. File -> Open environment
+4. Choose `mockoon.json` at project's root
+5. Click on Play icon to start server
+   > It will be acessible via [localhost:3456](http://localhost:3123) or any other chosen port at .env.local file and Mockoon settings.
 
 ### Installing dependencies
 
@@ -53,6 +65,10 @@ yarn dev
 ```
 
 > It will be accessible via [localhost:3123](http://localhost:3123) as long as this port is available locally.
+
+## Responsive design
+
+This project works perfectly for both web and mobile uses. The layout is automatically defined according to the available screen width (minimum of `1110px` for web viewing).
 
 ## File structure
 
