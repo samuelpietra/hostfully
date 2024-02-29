@@ -45,7 +45,7 @@ function StateMessage({
   title,
   type
 }: PropsWithChildren<StateMessageProps>) {
-  const { Icon, title: defaultTitle } = useMemo(() => stateContent[type], [])
+  const { Icon, title: defaultTitle } = useMemo(() => stateContent[type], [type])
 
   return (
     <Column alignItems="center" justifyContent="center" flex={1}>

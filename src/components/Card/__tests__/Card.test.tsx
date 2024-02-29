@@ -1,16 +1,16 @@
 import { render, screen } from '@/testUtils'
 
-import { Column } from '../Column'
+import { Card } from '../Card'
 
-describe('Column', () => {
+describe('Card', () => {
   test('SHOULD render correctly', () => {
-    render(<Column>something</Column>)
+    render(<Card>something</Card>)
 
     expect(screen.getByText('something')).toBeInTheDocument()
   })
 
   test('SHOULD render with style props', () => {
-    render(<Column color="#800">red text</Column>)
+    render(<Card color="#800">red text</Card>)
 
     const redText = screen.getByText('red text')
 

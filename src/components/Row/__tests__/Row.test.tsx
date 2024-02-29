@@ -4,17 +4,17 @@ import { Row } from '../Row'
 
 describe('Row', () => {
   test('SHOULD render correctly', () => {
-    render(<Row />)
+    render(<Row>something</Row>)
 
-    expect(screen.getByRole('article')).toBeInTheDocument()
+    expect(screen.getByText('something')).toBeInTheDocument()
   })
 
   test('SHOULD render with style props', () => {
-    render(<Row backgroundColor="#000" width={100} />)
+    render(<Row color="#800">red text</Row>)
 
-    const rowElement = screen.getByRole('article')
+    const redText = screen.getByText('red text')
 
-    expect(rowElement).toBeInTheDocument()
-    expect(rowElement).toHaveStyle('background-color: #000; width: 100px')
+    expect(redText).toBeInTheDocument()
+    expect(redText).toHaveStyle('color: #800')
   })
 })
