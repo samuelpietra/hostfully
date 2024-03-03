@@ -116,6 +116,8 @@ function EditBookingPage() {
 
   const error = Boolean(createBookingError || updateBookingError)
   const isLoading = isCreatingBooking || isUpdatingBooking
+  const creatingFormError = !existingId && !formState.isValid
+  const editingFormError = Boolean(existingId) && (!formState.isValid || !formState.isDirty)
 
   return (
     <Wrapper>
@@ -137,7 +139,7 @@ function EditBookingPage() {
         </Button>
 
         <Button
-          disabled={isLoading}
+          disabled={isLoading || creatingFormError || editingFormError}
           onClick={(event) => void handleSubmit(onSaveBooking)(event)}
           size="small"
           startIcon={isLoading ? <AnimatedLoading size={18} /> : <FaSave color="#3dc299" size={18} />}
