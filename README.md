@@ -31,40 +31,7 @@ Hostfully products give property managers the tools they need to automate operat
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Cloning this repo
-
-```bash
-git clone https://github.com/samuelpietra/hostfully.git
-```
-
-### Prerequisites
-
-- This project needs to run a local mock API with [Mockoon](https://mockoon.com/)
-- A `.env.local` file is needed at root. Simply duplicate and rename `.env.example`
-- Make sure to use at least **Node 18** and **Yarn 1.22.1** before proceeding
-
-### Installing and running Mockoon
-
-1. Download Mockoon ([here](https://mockoon.com/download/#download-section))
-2. Install and open program
-3. File -> Open environment
-4. Choose `mockoon.json` at project's root
-5. Click on Play icon to start server
-   > It will be acessible via [localhost:3456](http://localhost:3123) or any other chosen port at .env.local file and Mockoon settings.
-
-### Installing dependencies
-
-```bash
-yarn install
-```
-
-### Running this project
-
-```bash
-yarn dev
-```
-
-> It will be accessible via [localhost:3123](http://localhost:3123) as long as this port is available locally.
+Please check [SETUP.MD](/SETUP.md) file to get to know requirements and instructions.
 
 ## Responsive design
 
